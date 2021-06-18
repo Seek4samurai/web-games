@@ -1,0 +1,26 @@
+{
+  "name": "web-games",
+  "version": "1.0.0",
+  "description": "University Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seek4samurai/web-games.git"
+  },
+  "keywords": [
+    "javascript-games",
+    "games"
+  ],
+  "author": "seek4samurai, frostzt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Seek4samurai/web-games/issues"
+  },
+  "homepage": "https://github.com/Seek4samurai/web-games#readme",
+  "dependencies": {
+    "sass": "^1.35.1"
+  }
+}
