@@ -1,0 +1,51 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+#game-1 {
+  background-color: yellow;
+}
+
+#game-2 {
+  background-color: orangered;
+}
+
+#game-3 {
+  background-color: palegoldenrod;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+.container .card {
+  height: 100%;
+  position: relative;
+  width: calc(100% / 3);
+}
+.container .card__link {
+  top: 50%;
+  left: 50%;
+  color: white;
+  font-size: 5rem;
+  font-weight: 700;
+  position: absolute;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%);
+}
+.container .card__link:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/*# sourceMappingURL=style.css.map */
