@@ -1,6 +1,5 @@
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
-
 canvas.width = 600;
 canvas.height = 400;
 
@@ -16,7 +15,10 @@ function animate() {
   //ctx.fillRect(10, canvas.height - 90, 50, 50);
   bird.update();
   bird.draw();
+  handleParticles();
   requestAnimationFrame(animate);
+  angle += 0.12;
+  hue++;
 }
 
 animate();
