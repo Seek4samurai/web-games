@@ -14,8 +14,9 @@ class particle {
   }
   draw() {
     ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillRect(this.x, this.y, 20, 20);
+    // ctx.beginPath();
+    // ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
   }
 }
