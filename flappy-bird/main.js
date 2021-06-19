@@ -14,8 +14,13 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   //ctx.fillRect(10, canvas.height - 90, 50, 50);
   handleObstacles();
+  if (handleCollisions()) return;
   bird.update();
   bird.draw();
+  ctx.fillStyle = "hsla(" + hue + ", 100%, 50%, 1)";
+  ctx.font = "90px Georgia";
+  ctx.strokeText(score, 450, 70);
+  ctx.fillText(score, 450, 70);
   handleParticles();
   handleCollisions();
   requestAnimationFrame(animate);
@@ -44,8 +49,16 @@ function handleCollisions() {
       ((bird.y < 0 + obstaclesArray[i].top && bird.y + bird.height > 0) ||
         (bird.y > canvas.height - obstaclesArray[i].bottom &&
           bird.y + bird.height < canvas.height))
+      //Collision Detection
     ) {
       ctx.drawImage(bang, bird.x, bird.y, 50, 50);
+      ctx.font = "25px Georgia";
+      ctx.fillStyle = "black";
+      ctx.fillText(
+        "Game Over, Your Score is " + score,
+        160,
+        canvas.height / 2 - 10
+      );
       return true;
     }
   }

@@ -11,6 +11,7 @@ class Obstacle {
     this.width = 20;
     // ------------------------------------------------
     this.color = "hsla(" + hue + ", 100%, 50%, 1)";
+    this.counted = false;
   }
   draw() {
     ctx.fillStyle = this.color;
@@ -19,6 +20,10 @@ class Obstacle {
   }
   update() {
     this.x -= gamespeed;
+    if (!this.counted && this.x < bird.x) {
+      score++;
+      this.counted = true;
+    }
     this.draw();
   }
 }
