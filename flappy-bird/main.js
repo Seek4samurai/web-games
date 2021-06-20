@@ -1,8 +1,11 @@
+const startBtn = document.getElementById("single");
+const menuDom = document.getElementById("menu");
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 400;
 
+let state = false;
 let spacePresssed = false;
 let angle = 0;
 let hue = 0;
@@ -51,7 +54,9 @@ function animate() {
   frame++;
 }
 
-animate();
+if (state) {
+  animate();
+}
 
 window.addEventListener("keydown", function (e) {
   if (e.code === "Space") spacePresssed = true;
@@ -59,6 +64,12 @@ window.addEventListener("keydown", function (e) {
 
 window.addEventListener("keyup", function (e) {
   if (e.code === "Space") spacePresssed = false;
+});
+
+startBtn.addEventListener("click", () => {
+  state = true;
+  menuDom.parentNode.removeChild(menuDom);
+  animate();
 });
 
 // Collision Detection----------------------------------------------------
