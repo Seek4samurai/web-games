@@ -1,11 +1,16 @@
+// Get the canvas and its bounds
+const canvas = document.getElementById("canvas1");
+let canvasLeftBound = canvas.offsetLeft;
+let canvasUpperBound = canvas.offsetTop;
+
 const startBtn = document.getElementById("single");
 const menuDom = document.getElementById("menu");
-const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 400;
 
 let state = false;
+let isDead = false;
 let spacePresssed = false;
 let angle = 0;
 let hue = 0;
@@ -39,7 +44,12 @@ function animate() {
   //ctx.fillRect(10, canvas.height - 90, 50, 50);
   handleBackground();
   handleObstacles();
-  if (handleCollisions()) return;
+  if (handleCollisions()) {
+    isDead = true;
+    state = false;
+    renderDeadBtn();
+    return;
+  }
   bird.update();
   bird.draw();
   ctx.fillStyle = "hsla(" + hue + ", 100%, 50%, 1)";
@@ -97,3 +107,22 @@ function handleCollisions() {
     }
   }
 }
+
+// Render Btn and handle click events
+function renderDeadBtn() {
+  ctx.fillStyle = "#006680";
+  ctx.fillRect(240, 200, 120, 40);
+  ctx.font = "30px Georgia";
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
+  ctx.fillText("Retry!", canvas.width / 2, canvas.height / 2 + 30);
+}
+
+canvas.addEventListener("click", (e) => {
+  let x = e.pageX - canvasLeftBound;
+  let y = e.pageY - canvasUpperBound;
+
+  if (y > 0 && y < 40 && x > -60 && x < 60) {
+    location.reload();
+  }
+});
