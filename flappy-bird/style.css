@@ -12,7 +12,7 @@
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
 body {
-  background: orange;
+  background-image: url("saf.gif");
 }
 
 .wrapper {
@@ -134,26 +134,26 @@ body {
 #left {
   height: 100px;
   width: 600px;
-  background: orange;
+  background: #004c92;
   position: absolute;
   z-index: 6;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   top: -175px;
   right: -104px;
-  border-top: 1px solid white;
+  /* border-top: 1px solid white; */
 }
 #right {
   height: 100px;
   width: 600px;
-  background: orange;
+  background: #004c92;
   position: absolute;
   top: -229px;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   z-index: 7;
   left: -56px;
-  border-top: 1px solid white;
+  /* border-top: 1px solid white; */
 }
 
 #single p {
