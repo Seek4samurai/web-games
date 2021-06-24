@@ -1,5 +1,4 @@
-// Steps to follow or Things Implemented
-// Canvas Setup
+// Canvas Setup--------------------------------------------------------------------------
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 canvas.width = 800;
@@ -9,7 +8,7 @@ let gameFrame = 0;
 let gameSpeed = 1;
 ctx.font = "50px Georgia";
 
-// Mouse Interaction
+// Mouse Interaction--------------------------------------------------------------------------
 let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
   x: canvas.width / 2,
@@ -24,7 +23,8 @@ canvas.addEventListener("mousedown", function (event) {
 canvas.addEventListener("mouseup", function () {
   mouse.click = false;
 });
-// Player
+
+// Player--------------------------------------------------------------------------
 const playerLeft = new Image();
 playerLeft.src = "fish_swim_left.png";
 const playerRight = new Image();
@@ -61,12 +61,15 @@ class Player {
       ctx.lineTo(mouse.x, mouse.y);
       ctx.stroke();
     }
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.closePath();
-    ctx.fillRect(this.x, this.y, this.radius, 10);
+
+    // Player Hit Box--------------------------------------------------------------------------
+
+    // ctx.fillStyle = "red";
+    // ctx.beginPath();
+    // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    // ctx.fill();
+    // ctx.closePath();
+    // ctx.fillRect(this.x, this.y, this.radius, 10);
 
     ctx.save();
     ctx.translate(this.x, this.y);
@@ -101,8 +104,10 @@ class Player {
 }
 const player = new Player();
 
-// Bubbles
+// Bubbles--------------------------------------------------------------------------
 const bubblesArray = [];
+const bubbleImage = new Image();
+bubbleImage.src = "./bubble_pop_one/bubble_pop_frame_01.png";
 class Bubble {
   constructor() {
     this.x = Math.random() * canvas.width;
@@ -120,12 +125,20 @@ class Bubble {
     this.distance = Math.sqrt(dx * dx + dy * dy);
   }
   draw() {
-    ctx.fillStyle = "blue";
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.closePath();
-    ctx.stroke();
+    // Bubble Hitbox--------------------------------------------------------------------------
+    // ctx.fillStyle = "blue";
+    // ctx.beginPath();
+    // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    // ctx.fill();
+    // ctx.closePath();
+    // ctx.stroke();
+    ctx.drawImage(
+      bubbleImage,
+      this.x - 65,
+      this.y - 65,
+      this.radius * 2.6,
+      this.radius * 2.6
+    );
   }
 }
 
@@ -135,7 +148,7 @@ const bubblePop2 = document.createElement("audio");
 bubblePop2.src = "bubbles-single1.wav";
 
 function handleBubbles() {
-  if (gameFrame % 50 == 0) {
+  if (gameFrame % 30 == 0) {
     bubblesArray.push(new Bubble());
   }
   for (let i = 0; i < bubblesArray.length; i++) {
@@ -163,7 +176,7 @@ function handleBubbles() {
   for (let i = 0; i < bubblesArray.length; i++) {}
 }
 
-//Animated BG
+//Animated BG--------------------------------------------------------------------------
 
 const background = new Image();
 background.src = "background1.png";
@@ -177,15 +190,15 @@ const BG = {
 };
 
 function handleBackground() {
-  BG.x1--;
+  BG.x1 -= gameSpeed;
   if (BG.x1 < -BG.width) BG.x1 = BG.width;
-  BG.x2--;
+  BG.x2 -= gameSpeed;
   if (BG.x2 < -BG.width) BG.x2 = BG.width;
   ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
   ctx.drawImage(background, BG.x2, BG.y, BG.width, BG.height);
 }
 
-// Animation Loop
+// Animation Loop--------------------------------------------------------------------------
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   handleBackground();
@@ -199,6 +212,7 @@ function animate() {
 }
 animate();
 
+// Resize--------------------------------------------------------------------------
 window.addEventListener("resize", function () {
   canvasPosition = canvas.getBoundingClientRect();
 });
