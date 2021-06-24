@@ -6,7 +6,9 @@ canvas.width = 800;
 canvas.height = 500;
 let score = 0;
 let gameFrame = 0;
+let gameSpeed = 1;
 ctx.font = "50px Georgia";
+
 // Mouse Interaction
 let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
@@ -23,21 +25,27 @@ canvas.addEventListener("mouseup", function () {
   mouse.click = false;
 });
 // Player
+const playerLeft = new Image();
+playerLeft.src = "fish_swim_left.png";
+const playerRight = new Image();
+playerRight.src = "fish_swim_right.png";
 class Player {
   constructor() {
     this.x = canvas.width;
     this.y = canvas.height / 2;
     this.radius = 50;
     this.angle = 0;
-    this.framex = 0;
-    this.framey = 0;
+    this.frameX = 0;
+    this.frameY = 0;
     this.frame = 0;
     this.spriteWidth = 498;
-    this.spriteheight = 327;
+    this.spriteHeight = 327;
   }
   update() {
     const dx = this.x - mouse.x;
     const dy = this.y - mouse.y;
+    let theta = Math.atan2(dy, dx);
+    this.angle = theta;
     if (mouse.x != this.x) {
       this.x -= dx / 20;
     }
@@ -59,6 +67,36 @@ class Player {
     ctx.fill();
     ctx.closePath();
     ctx.fillRect(this.x, this.y, this.radius, 10);
+
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    if (this.x >= mouse.x) {
+      ctx.drawImage(
+        playerLeft,
+        this.frameX * this.spriteWidth,
+        this.frameY * this.spriteHeight,
+        this.spriteWidth,
+        this.spriteHeight,
+        0 - 60,
+        0 - 45,
+        this.spriteWidth / 4,
+        this.spriteHeight / 4
+      );
+    } else {
+      ctx.drawImage(
+        playerRight,
+        this.frameX * this.spriteWidth,
+        this.frameY * this.spriteHeight,
+        this.spriteWidth,
+        this.spriteHeight,
+        0 - 60,
+        0 - 45,
+        this.spriteWidth / 4,
+        this.spriteHeight / 4
+      );
+    }
+    ctx.restore();
   }
 }
 const player = new Player();
@@ -103,29 +141,54 @@ function handleBubbles() {
   for (let i = 0; i < bubblesArray.length; i++) {
     bubblesArray[i].update();
     bubblesArray[i].draw();
-  }
-  for (let i = 0; i < bubblesArray.length; i++) {
     if (bubblesArray[i].y < 0 - bubblesArray[i].radius * 2) {
       bubblesArray.splice(i, 1);
-    }
-    if (bubblesArray[i].distance < bubblesArray[i].radius + player.radius) {
-      if (!bubblesArray[i].counted) {
-        if (bubblesArray[i].sound == "sound1") {
-          bubblePop1.play();
-        } else {
-          bubblePop2.play();
+      i--;
+    } else {
+      if (bubblesArray[i].distance < bubblesArray[i].radius + player.radius) {
+        if (!bubblesArray[i].counted) {
+          if (bubblesArray[i].sound == "sound1") {
+            bubblePop1.play();
+          } else {
+            bubblePop2.play();
+          }
+          score++;
+          bubblesArray[i].counted = true;
+          bubblesArray.splice(i, 1);
+          i--;
         }
-        score++;
-        bubblesArray[i].counted = true;
-        bubblesArray.splice(i, 1);
       }
     }
   }
+  for (let i = 0; i < bubblesArray.length; i++) {}
+}
+
+//Animated BG
+
+const background = new Image();
+background.src = "background1.png";
+
+const BG = {
+  x1: 0,
+  x2: canvas.width,
+  y: 0,
+  width: canvas.width,
+  height: canvas.height,
+};
+
+function handleBackground() {
+  BG.x1--;
+  if (BG.x1 < -BG.width) BG.x1 = BG.width;
+  BG.x2--;
+  if (BG.x2 < -BG.width) BG.x2 = BG.width;
+  ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
+  ctx.drawImage(background, BG.x2, BG.y, BG.width, BG.height);
 }
 
 // Animation Loop
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  handleBackground();
   handleBubbles();
   player.update();
   player.draw();
@@ -135,3 +198,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+
+window.addEventListener("resize", function () {
+  canvasPosition = canvas.getBoundingClientRect();
+});
