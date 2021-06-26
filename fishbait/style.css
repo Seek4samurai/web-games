@@ -115,7 +115,6 @@ body {
   color: orange;
   font-family: shadows into light;
   cursor: pointer;
-  border-radius: 50%;
 }
 
 #single:hover {
@@ -130,7 +129,6 @@ body {
   color: white;
   -webkit-transform: rotate(-2deg);
   transform: rotate(-2deg);
-  border-radius: 50%;
 }
 
 #options:hover {
@@ -138,14 +136,12 @@ body {
   color: white;
   -webkit-transform: rotate(-2deg);
   transform: rotate(-2deg);
-  border-radius: 50%;
 }
 
 #single p {
   position: relative;
   top: 2px;
   right: 4px;
-  border-radius: 50%;
 }
 
 #options {
@@ -162,14 +158,12 @@ body {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   cursor: pointer;
-  border-radius: 50%;
 }
 
 #options p {
   position: relative;
   top: 0px;
   right: 4px;
-  border-radius: 50%;
 }
 
 #credits {
@@ -186,11 +180,9 @@ body {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   cursor: pointer;
-  border-radius: 50%;
 }
 
 #credits p {
   position: relative;
   top: 0px;
-  border-radius: 50%;
 }
