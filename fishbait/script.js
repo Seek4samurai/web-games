@@ -17,6 +17,7 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   renderDeadBtn();
   handleBackground();
+  handleBackground2()
   handleBubbles();
   player.update();
   player.draw();
